@@ -40,7 +40,7 @@ local Tabs = { --Все табы
     }
 }
 
-local Options = Library.Options
+local Options = Library.Options --Работает - не трогай
 
 Library:Notify{ --Оповестить
     Title = "Notification", --Название оповещения
@@ -147,11 +147,11 @@ Tabs.Loader:CreateButton{ --Создание кнопки с подтвержд�
         }
     end
 }
-Tabs.Main:Button({
-    Title = "Button but with an error",
-    Description = "Not a important button",
-    Callback = function()
-        loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))()
+Tabs.Main:Button({ --Создание кнопки
+    Title = "Выдать предмет на дрочку", --Название кнопки
+    Description = "💕", --Описание кнопки
+    Callback = function() --Функция кнопки
+        loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))() --Загрузка скрипта
     end
 })
 
