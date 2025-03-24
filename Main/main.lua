@@ -50,8 +50,6 @@ local MainParagraph = Tabs.Main:CreateParagraph("MainParagraph", { --Параг�
     Content = "Игра: " .. CurGame .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower, --Контент параграфа
 })
 
-
-
 local Paragraph = Tabs.Main:CreateParagraph("Paragraph", { --Параграф 2 // "Общие функции"
     Title = "Общие функции", --Название параграфа
     Content = nil, --Контент параграфа
@@ -59,54 +57,6 @@ local Paragraph = Tabs.Main:CreateParagraph("Paragraph", { --Параграф 2 
     ContentAlignment = Enum.TextXAlignment.Center --Где будет контент параграфа // Слева/Посередине/Справа
 })
 
-local FBToggle_T = Tabs.Main:CreateToggle("FBToggle_T", {Title = "Светлота", Default = false }) --Переключатель на светлоту
-
---Установка старых значений
-local OldBrightness = game.Lighting.Brightness
-local OldClocktime = game.Lighting.ClockTime
-local OldFogEnd = game.Lighting.FogEnd
-local OldGlobalShadows = game.Lighting.GlobalShadows
-local OldOutdoorAmbient = game.Lighting.OutdoorAmbient
-
-local function FBToggle_F() --Функция которая включает/выключает светлоту
-    if Options.FBToggle_T.Value == true then --Если переключатель включен то...
-        --Сохранение старых значений
-        local OldBrightness = game.Lighting.Brightness
-        local OldClocktime = game.Lighting.ClockTime
-        local OldFogEnd = game.Lighting.FogEnd
-        local OldGlobalShadows = game.Lighting.GlobalShadows
-        local OldOutdoorAmbient = game.Lighting.OutdoorAmbient
-
-        --Осветление
-        game.Lighting.Brightness = 5
-		game.Lighting.ClockTime = 14
-		game.Lighting.FogEnd = 100000
-		game.Lighting.GlobalShadows = false
-		game.Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
-    else --Если переключатель выключен то... // Сразу выполнается т.к. переключатель установлен на false 
-        game.Lighting.Brightness = OldBrightness 
-        game.Lighting.ClockTime = OldClocktime
-        game.Lighting.FogEnd = OldFogEnd
-        game.Lighting.GlobalShadows = OldGlobalShadows
-        game.Lighting.OutdoorAmbient = OldOutdoorAmbient
-    end
-end
-
-FBToggle_T:OnChanged(function() --Активация при переключении
-    FBToggle_F() --Функция которая включает/выключает светлоту // см. строка 110
-end)
-
-local Slider = Tabs.Main:AddSlider("Slider", { --Создание слайдера
-	Title = "Скорость", --Название слайдера
-	Description = "He испоьзуйте в Doors и в других играх где может быть Анти-Чит", --Описание слайдера
-	default = 16, --Начальное значение
-	Min = 16, --Минимальное значение
-	Max = 100, --Максимальное значение
-	Rounding = 2, --Изменение значения
-	Callback = function(Value) --Функция при изменении значения
-		PlayerHuma.WalkSpeed = Value --Установка скорости Humanoid-у
-	end
-})
 Tabs.Main:CreateButton{ --Создание кнопки с подтверждением // Кнопка на загрузку Plutonium Hub
     Title = "Загрузить Plutonium Hub", --Название кнопки
     Description = "(Это не мое, так что баги - не моя вина)", --Описание кнопки
