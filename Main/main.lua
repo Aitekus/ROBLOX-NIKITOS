@@ -185,10 +185,8 @@ Tabs.Main:Button({
 --Бесконечности
 
 while wait(0.1) do
-    Player = game.Players.LocalPlayer
-    PLayerName = Player.Name
-    PLayerChar = Player.Character
-    PlayerHuma = PLayerChar.Humanoid
+    PlayerChar = Player.Character
+    PlayerHuma = PlayerChar.Humanoid
 
     MainParagraph:SetValue("Игра: Не поддержана" .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower) 
 end
