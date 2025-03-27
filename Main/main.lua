@@ -113,6 +113,74 @@ Tabs.Loader:CreateButton{ --Создание кнопки с подтвержд�
     end
 }
 
+Tabs.Main:Button({ --Создание кнопки
+    Title = "Выдать предмет на дрочку", --Название кнопки
+    Description = "💕", --Описание кнопки
+    Callback = function() --Функция кнопки
+        loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))() --Загрузка скрипта
+    end
+})
+
+local FBToggle_T = Tabs.Main:CreateToggle("FBToggle_T", {Title = "Светлота", Default = false }) --Переключатель на светлоту
+
+--Установка старых значений
+local OldBrightness = game.Lighting.Brightness
+local OldClocktime = game.Lighting.ClockTime
+local OldFogEnd = game.Lighting.FogEnd
+local OldGlobalShadows = game.Lighting.GlobalShadows
+local OldOutdoorAmbient = game.Lighting.OutdoorAmbient
+
+local function FBToggle_F() --Функция которая включает/выключает светлоту
+    if Options.FBToggle_T.Value == true then --Если переключатель включен то...
+        --Сохранение старых значений
+        local OldBrightness = game.Lighting.Brightness
+        local OldClocktime = game.Lighting.ClockTime
+        local OldFogEnd = game.Lighting.FogEnd
+        local OldGlobalShadows = game.Lighting.GlobalShadows
+        local OldOutdoorAmbient = game.Lighting.OutdoorAmbient
+
+        --Осветление
+        game.Lighting.Brightness = 5
+		game.Lighting.ClockTime = 14
+		game.Lighting.FogEnd = 100000
+		game.Lighting.GlobalShadows = false
+		game.Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+    else --Если переключатель выключен то... // Сразу выполнается т.к. переключатель установлен на false 
+        game.Lighting.Brightness = OldBrightness 
+        game.Lighting.ClockTime = OldClocktime
+        game.Lighting.FogEnd = OldFogEnd
+        game.Lighting.GlobalShadows = OldGlobalShadows
+        game.Lighting.OutdoorAmbient = OldOutdoorAmbient
+    end
+end
+
+FBToggle_T:OnChanged(function() --Активация при переключении
+    FBToggle_F() --Функция которая включает/выключает светлоту // см. строка 110
+end)
+
+Tabs.Main:Button({
+    Title = "Бесконечное HP",
+    Description = "",
+    Callback = function()
+        local Cam = workspace.CurrentCamera
+	    local Pos, Char = Cam.CFrame, speaker.Character
+	    local Human = Char and Char.FindFirstChildWhichIsA(Char, "Humanoid")
+	    local nHuman = Human.Clone(Human)
+	    nHuman.Parent, speaker.Character = Char, nil
+	    nHuman.SetStateEnabled(nHuman, 15, false)
+	    nHuman.SetStateEnabled(nHuman, 1, false)
+	    nHuman.SetStateEnabled(nHuman, 0, false)
+	    nHuman.BreakJointsOnDeath, Human = true, Human.Destroy(Human)
+	    speaker.Character, Cam.CameraSubject, Cam.CFrame = Char, nHuman, wait() and Pos
+	    nHuman.DisplayDistanceType = Enum.HumanoidDisplayDistanceType.None
+	    local Script = Char.FindFirstChild(Char, "Animate")
+	    if Script then
+		    Script.Disabled = true
+		    Script.Disabled = false
+	    end
+	    nHuman.Health = nHuman.MaxHealth
+    end
+})
 
 --Бесконечности
 
@@ -122,5 +190,5 @@ while wait(0.1) do
     PLayerChar = Player.Character
     PlayerHuma = PLayerChar.Humanoid
 
-    MainParagraph:SetValue("Игра: " .. CurGame .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower) 
+    MainParagraph:SetValue("Игра: Не поддержана" .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower) 
 end
