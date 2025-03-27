@@ -182,6 +182,38 @@ Tabs.Main:Button({
     end
 })
 
+local Input = Tabs.Main:Input("Input", {
+    Title = "feedback",
+    Default = "Default",
+    Numeric = false,
+    Finished = false,
+    Placeholder = "Placeholder text",
+    Callback = function(Value)
+        local HttpService = game:GetService("HttpService")
+	
+	local apiKey = "o9LHCkJe3RrzNRyy05Pc8URl9IufgTlz"  -- Получи через авторизацию
+	local userApiKey = ""  -- Вставь сюда свой ключ для пользователя, полученный после авторизации
+	
+	local url = "https://pastebin.com/api/api_post.php"
+	local data = {
+    	["api_dev_key"] = apiKey,
+    	["api_user_key"] = userApiKey,  -- Ключ для пользователя
+    	["api_option"] = "paste",
+    	["api_paste_data"] = "Feedback; Ник игрока - " .. PlayerName .. " | GameId " .. game.PlaceId .. "| Сылка https://www.roblox.com/games/" .. game.PlaceId .. " Feedback: " .. Value,
+    	["api_paste_name"] = "FEEDBACK - NIKITOSIK", 
+    	["api_paste_private"] = "0",  -- 0 - публичная, 1 - не для всех
+    	["api_paste_expire_date"] = "N"  -- бесконечность, возможны другие параметры 
+	}
+	
+	local jsonData = HttpService:JSONEncode(data)
+	
+	local response = HttpService:PostAsync(url, jsonData, Enum.HttpContentType.ApplicationJson)
+	
+	print("Ответ от Pastebin:", response)
+
+    end
+})
+
 --Бесконечности
 
 while wait(0.1) do
