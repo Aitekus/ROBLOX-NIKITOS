@@ -1,34 +1,35 @@
-warn("NIKITOS // Привет!")
---Loadstring-и
-local Library = loadstring(game:HttpGetAsync("https://github.com/ActualMasterOogway/Fluent-Renewed/releases/latest/download/Fluent.luau"))() --Библиотека Fluent
-local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Aitekus/main/refs/heads/main/ROBLOX-NIKITOS/SaveManager_RU.lua"))() --Модуль сохранений
-local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Aitekus/main/refs/heads/main/ROBLOX-NIKITOS/InterfaceManager_RU.lua"))() --Модуль интерфейса
+warn("NIKITOS // Привет!") -- Выводит приветственное сообщение в консоль
+gamename = "Dead rails - в лобби"
 
---Игрок
-local Player = game.Players.LocalPlayer --Игрок в game.Players
-local PlayerName = Player.Name --Nickname игрока
-local PlayerChar = Player.Character --Персонаж игрока
-local PlayerHuma = PlayerChar.Humanoid --Humanoid игрока
+-- Загружаем необходимые библиотеки
+local Library = loadstring(game:HttpGetAsync("https://github.com/ActualMasterOogway/Fluent-Renewed/releases/latest/download/Fluent.luau"))() -- Библиотека Fluent для создания интерфейса
+local SaveManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Aitekus/ROBLOX-NIKITOS/refs/heads/main/Main/Modules/SaveManager_RU.lua"))() -- Модуль для сохранений
+local InterfaceManager = loadstring(game:HttpGetAsync("https://raw.githubusercontent.com/Aitekus/ROBLOX-NIKITOS/refs/heads/main/Main/Modules/InterfaceManager_RU.lua"))() -- Модуль для управления интерфейсом
 
---Fluent
+-- Информация о текущем игроке
+local Player = game.Players.LocalPlayer -- Игрок
+local PlayerName = Player.Name -- Имя игрока
+local PlayerChar = Player.Character -- Персонаж игрока
+local PlayerHuma = PlayerChar.Humanoid -- Humanoid (человекоподобная часть персонажа)
 
-local Window = Library:CreateWindow{ --Создание окна
-    Title = "NIKITOS // ", --Заговолок окна
-    SubTitle = "Придумай сам что тут написано...", --Подзаговолок окна
-    TabWidth = 160, --Работает - не трогай
-    Size = UDim2.fromOffset(830, 525), --Работает - не трогай
-    Resize = true, --Возможность поменять размер
-    MinSize = Vector2.new(470, 380), --Минимальный размер
-    Acrylic = true, --Блюр может быть замечен, поставив на false вы отключите блюр полностью
-    Theme = "Dark", --Тема
-    MinimizeKey = Enum.KeyCode.RightControl --Использована если нету Minimize bind (Кнопка для сворачивания)
+-- Создание окна интерфейса с использованием Fluent
+local Window = Library:CreateWindow{ 
+    Title = "NIKITOS // " .. gamename, -- Заголовок окна
+    SubTitle = "Придумай сам что тут написано...", -- Подзаголовок окна
+    TabWidth = 160, -- Ширина вкладки
+    Size = UDim2.fromOffset(830, 525), -- Размер окна
+    Resize = true, -- Возможность изменения размера окна
+    MinSize = Vector2.new(470, 380), -- Минимальный размер окна
+    Acrylic = true, -- Включение эффекта блюра
+    Theme = "Dark", -- Тема интерфейса
+    MinimizeKey = Enum.KeyCode.RightControl -- Клавиша для минимизации
 }
 
---Fluent Renewed представляет возможным использовать ВСЕ 1544 Lucide 0.469.0 https://lucide.dev/icons/ иконки и ВСЕ 9072 Phosphor 2.1.0 https://phosphoricons.com/ иконки для табов. Иконки на выбор :D
-local Tabs = { --Все табы
-    Main = Window:CreateTab{ --Создание таба
-        Title = "Общее", --Название таба
-        Icon = "phosphor-users-bold" --Иконка таба
+-- Определяем табы для интерфейса
+local Tabs = { 
+    Main = Window:CreateTab{ 
+        Title = "Общее", -- Заголовок вкладки
+        Icon = "phosphor-users-bold" -- Иконка вкладки
     },
     Settings = Window:CreateTab{
         Title = "Настройки",
@@ -37,49 +38,43 @@ local Tabs = { --Все табы
     Loader = Window:CreateTab{
         Title = "Загрузчики",
         Icon = "github"
-    }
+    },
 }
 
-local Options = Library.Options
-
-Library:Notify{ --Оповестить
-    Title = "Notification", --Название оповещения
-    Content = "This is a notification", --Контент оповещения
-    SubContent = "SubContent", --ПодКонтент оповещения
-    Duration = 5 --Сколько секунд пробудет // Поставьте на nil чтоб не исчезало
+-- Настройка уведомлений
+Library:Notify{ 
+    Title = "Notification", -- Заголовок уведомления
+    Content = "This is a notification", -- Контент уведомления
+    SubContent = "SubContent", -- Дополнительный контент уведомления
+    Duration = 5 -- Время отображения уведомления
 }
 
-local MainParagraph = Tabs.Main:CreateParagraph("MainParagraph", { --Параграф 1 // Общая инфа
-    Title = "Здраствуй, " .. PlayerName, --Название параграфа
-    Content = "Игра: " .. CurGame .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower, --Контент параграфа
+-- Создание параграфов с информацией в вкладке Main
+local MainParagraph = Tabs.Main:CreateParagraph("MainParagraph", {
+    Title = "Здраствуй, " .. PlayerName, -- Заголовок параграфа
+    Content = "Игра: " .. "dfsyqeweasdhuzshfyu" .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower, -- Контент параграфа
 })
 
-local Paragraph = Tabs.Main:CreateParagraph("Paragraph", { --Параграф 2 // "Общие функции"
-    Title = "Общие функции", --Название параграфа
-    Content = nil, --Контент параграфа
-    TitleAlignment = "Middle", --Где будет название параграфа // Слева/Посередине/Справа
-    ContentAlignment = Enum.TextXAlignment.Center --Где будет контент параграфа // Слева/Посередине/Справа
-})
-
-Tabs.Loader:CreateButton{ --Создание кнопки с подтверждением // Кнопка на загрузку Plutonium Hub
-    Title = "Загрузить Plutonium Hub", --Название кнопки
-    Description = "(Это не мое, так что баги - не моя вина)", --Описание кнопки
-    Callback = function() --Актвиация при нажатии
-        Window:Dialog{ --Призыв окна диалога
-            Title = "Точно?", --Заголовок окна диалога
-            Content = "Уверен?", --Контент окна диалога
-            Buttons = { --Кнопки окна диалога
-                {
-                    Title = "Confirm", --Название кнопки окна диалога
-                    Callback = function() --Активация при нажатии
-                        loadstring(game:HttpGet("https://raw.githubusercontent.com/PawsThePaw/Plutonium.AA/main/Plutonium.Loader.lua", true))() --Загрузить Plutonium Hub
-                        print("NIKITOSIK | Принятие загрузки Plutonium Hub") --Написать в консоль
+-- Кнопка для загрузки Plutonium Hub с подтверждением
+Tabs.Loader:CreateButton{ 
+    Title = "Загрузить Plutonium Hub", 
+    Description = "(Это не мое, так что баги - не моя вина)", 
+    Callback = function() 
+        Window:Dialog{ 
+            Title = "Точно?", 
+            Content = "Уверен?", 
+            Buttons = { 
+                { 
+                    Title = "Confirm", 
+                    Callback = function() 
+                        loadstring(game:HttpGet("https://raw.githubusercontent.com/PawsThePaw/Plutonium.AA/main/Plutonium.Loader.lua", true))() 
+                        print("NIKITOSIK | Принятие загрузки Plutonium Hub") 
                     end
                 },
                 {
-                    Title = "Cancel", --Название кнопки окна диалога
-                    Callback = function() --Активация при нажатии
-                        print("NIKITOSIK | Отказ от загрузки Plutonium Hub") --Написать в консоль
+                    Title = "Cancel", 
+                    Callback = function() 
+                        print("NIKITOSIK | Отказ от загрузки Plutonium Hub") 
                     end
                 }
             }
@@ -87,25 +82,26 @@ Tabs.Loader:CreateButton{ --Создание кнопки с подтвержд�
     end
 }
 
-Tabs.Loader:CreateButton{ --Создание кнопки с подтверждением // Кнопка на загрузку BlackKing Hub
-    Title = "Загрузить BlackKing Hub", --Название кнопки
-    Description = "(Это не мое, так что баги - не моя вина)", --Описание кнопки
-    Callback = function() --Актвиация при нажатии
-        Window:Dialog{ --Призыв окна диалога
-            Title = "Точно?", --Заголовок окна диалога
-            Content = " ", --Контент окна диалога
-            Buttons = { --Кнопки окна диалога
-                {
-                    Title = "Confirm", --Название кнопки окна диалога
-                    Callback = function() --Активация при нажатии
-                        loadstring(game:HttpGet('https://raw.githubusercontent.com/KINGHUB01/BlackKing/main/BlackKing'))() --Загрузить BlackKing Hub
-                        print("NIKITOSIK | Принятие загрузки BlackKing Hub")
+-- Аналогичная кнопка для загрузки BlackKing Hub
+Tabs.Loader:CreateButton{ 
+    Title = "Загрузить BlackKing Hub", 
+    Description = "(Это не мое, так что баги - не моя вина)", 
+    Callback = function() 
+        Window:Dialog{ 
+            Title = "Точно?", 
+            Content = " ", 
+            Buttons = { 
+                { 
+                    Title = "Confirm", 
+                    Callback = function() 
+                        loadstring(game:HttpGet('https://raw.githubusercontent.com/KINGHUB01/BlackKing/main/BlackKing'))() 
+                        print("NIKITOSIK | Принятие загрузки BlackKing Hub") 
                     end
                 },
                 {
-                    Title = "Cancel", --Название кнопки окна диалога
-                    Callback = function() --Активация при нажатии
-                        print("NIKITOSIK | Отказ от загрузки BlackKing Hub") --Написать в консоль
+                    Title = "Cancel", 
+                    Callback = function() 
+                        print("NIKITOSIK | Отказ от загрузки BlackKing Hub") 
                     end
                 }
             }
@@ -113,14 +109,113 @@ Tabs.Loader:CreateButton{ --Создание кнопки с подтвержд�
     end
 }
 
+-- Кнопка для выдачи предмета
+Tabs.Main:Button({ 
+    Title = "Выдать предмет на дрочку", 
+    Description = "💕", 
+    Callback = function() 
+        loadstring(game:HttpGet("https://pastefy.app/wa3v2Vgm/raw"))() -- Загрузка скрипта
+    end
+})
 
---Бесконечности
 
+
+local FBToggle_T = Tabs.Main:CreateToggle("FBToggle_T", {Title = "Светлота", Default = false })
+
+-- Старые значения для освещения
+local OldBrightness = game.Lighting.Brightness
+local OldClocktime = game.Lighting.ClockTime
+local OldFogEnd = game.Lighting.FogEnd
+local OldGlobalShadows = game.Lighting.GlobalShadows
+local OldOutdoorAmbient = game.Lighting.OutdoorAmbient
+
+-- Функция для изменения светлоты
+local function FBToggle_F()
+    if FBToggle_T.Value then
+        -- на да
+		local OldBrightness = game.Lighting.Brightness
+		local OldClocktime = game.Lighting.ClockTime
+		local OldFogEnd = game.Lighting.FogEnd
+		local OldGlobalShadows = game.Lighting.GlobalShadows
+		local OldOutdoorAmbient = game.Lighting.OutdoorAmbient
+
+        game.Lighting.Brightness = 5
+        game.Lighting.ClockTime = 14
+        game.Lighting.FogEnd = 100000
+        game.Lighting.GlobalShadows = false
+        game.Lighting.OutdoorAmbient = Color3.fromRGB(128, 128, 128)
+    else
+        -- на нет
+        game.Lighting.Brightness = OldBrightness
+        game.Lighting.ClockTime = OldClocktime
+        game.Lighting.FogEnd = OldFogEnd
+        game.Lighting.GlobalShadows = OldGlobalShadows
+        game.Lighting.OutdoorAmbient = OldOutdoorAmbient
+    end
+end
+
+
+FBToggle_T:OnChanged(function() --Активация при переключении
+    FBToggle_F() --Функция которая включает/выключает светлоту
+end)
+
+-- Параграф с информацией о игре
+local ParagraphGameF = Tabs.Main:CreateParagraph("ParagraphGameF", { 
+    Title = "Для игры", 
+    Content = "(На заметку, это лобби.)", 
+    TitleAlignment = "Middle", 
+    ContentAlignment = Enum.TextXAlignment.Center 
+})
+
+-- Другой параграф с информацией по типу тг и так далее.
+local ParagraphDrygoe = Tabs.Main:CreateParagraph("ParagraphDrygoe", { 
+    Title = "Другое", 
+    Content = nil, 
+    TitleAlignment = "Middle", 
+    ContentAlignment = Enum.TextXAlignment.Center 
+})
+
+-- Кнопка для копирования Telegram
+Tabs.Main:Button({ 
+    Title = "Есть что сказать?", 
+    Description = "Скопировать Telegram", 
+    Callback = function() 
+        if setclipboard then
+            setclipboard("@Chelik_Chepubelik") --Тг
+            NotifyCopy(true)
+        else
+            NotifyCopy(false)
+        end 
+    end
+})
+
+-- Сохранение и настройка менеджеров интерфейса и сохранений
+SaveManager:SetLibrary(Library)
+InterfaceManager:SetLibrary(Library)
+SaveManager:IgnoreThemeSettings()
+SaveManager:SetIgnoreIndexes{}
+
+-- Построение секций для настроек и конфигураций
+InterfaceManager:BuildInterfaceSection(Tabs.Settings)
+SaveManager:BuildConfigSection(Tabs.Settings)
+
+-- Выбор первой вкладки
+Window:SelectTab(1)
+
+-- Уведомление о загрузке скрипта
+Library:Notify{
+    Title = "Fluent",
+    Content = "The script has been loaded.",
+    Duration = 8
+}
+
+-- Загрузка автозагружаемой конфигурации
+SaveManager:LoadAutoloadConfig()
+
+-- Бесконечный цикл обновления информации о общей информации
 while wait(0.1) do
-    Player = game.Players.LocalPlayer
-    PLayerName = Player.Name
-    PLayerChar = Player.Character
-    PlayerHuma = PLayerChar.Humanoid
+    PlayerChar = Player.Character
+    PlayerHuma = PlayerChar.Humanoid
 
-    MainParagraph:SetValue("Игра: " .. CurGame .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower) 
+    MainParagraph:SetValue("Игра: " .. gamename .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower) 
 end
