@@ -162,9 +162,80 @@ end)
 -- Параграф с информацией о игре
 local ParagraphGameF = Tabs.Main:CreateParagraph("ParagraphGameF", { 
     Title = "Для игры", 
-    Content = "", 
+    Content = "Это все только для этой игры", 
     TitleAlignment = "Middle", 
     ContentAlignment = Enum.TextXAlignment.Center 
+})
+
+plrgui = game.Players.LocalPlayer.PlayerGui
+
+godbuttondid = false
+
+function god()
+	godbuttondid = true
+end
+
+Tabs.Main:Button({ 
+    Title = "Убрать всех сущностей", 
+    Description = "У других они будут", 
+    Callback = function()
+		RS = game.ReplicatedStorage
+		RS.SendGoatman:Destroy()
+		RS.SendRush:Destroy()
+		RS.SendSorrow:Destroy()
+		RS.SendWorm:Destroy()
+		RS.OpenedFakeDoor:Destroy()
+		RS.ParasiteEffect:Destroy()
+		RS.Worm:Destroy()
+		RS.elkman:Destroy()
+        	for _, v in pairs(Game.Workspace.Rooms:GetChildren()) do
+            	if v:FindFirstChildWhichIsA("Door") then
+                v:FindFirstChildWhichIsA("Door"):Destroy()
+				end
+				if v:FindFirstChildWhichIsA("eye") then
+                v:FindFirstChildWhichIsA("eye"):Destroy()
+				end
+            	if v:FindFirstChildWhichIsA("elkman") then
+                v:FindFirstChildWhichIsA("elkman"):Destroy()
+            	end
+    		end
+		--RS.:Destroy()
+    end
+})
+
+Tabs.Main:Button({ 
+    Title = "Бессмертие", 
+    Description = "Я не подпишу договор о своей смерти.", 
+    Callback = function()
+		if godbuttondid == false then
+			god()
+			game.ReplicatedStorage.KillClient:Destroy()
+			--while wait(0.1) do
+				--plrgui:WaitForChild("GOATPORT")
+			--end
+		end
+    end
+})
+
+Tabs.Main:Button({ 
+    Title = "Убрать ненужный интерфейс", 
+    Description = "Классно", 
+    Callback = function() 
+		plrgui.eyegui:Destroy()
+    end
+})
+
+Tabs.Main:Button({ 
+    Title = "Восстановить камеру", 
+    Description = "Если забаголось", 
+    Callback = function()
+		if game.Workspace.Camera then 
+			Cam = game.Workspace.Camera
+			Cam:Destroy()
+		end
+		Cam = game.Workspace.Camera
+		Cam.CameraSubject = plrgui.Parent.Character.Humanoid
+    end
 })
 
 -- Другой параграф с информацией по типу тг и так далее.
@@ -182,6 +253,19 @@ Tabs.Main:Button({
     Callback = function() 
         if setclipboard then
             setclipboard("@Chelik_Chepubelik") --Тг
+            NotifyCopy(true)
+        else
+            NotifyCopy(false)
+        end 
+    end
+})
+
+Tabs.Main:Button({ 
+    Title = "Тг канал", 
+    Description = "Скопировать Telegram ссылку", 
+    Callback = function() 
+        if setclipboard then
+            setclipboard("https:\\t.me\NIKITOS_HUB") --Тг канал
             NotifyCopy(true)
         else
             NotifyCopy(false)
@@ -218,4 +302,9 @@ while wait(0.1) do
     PlayerHuma = PlayerChar.Humanoid
 
     MainParagraph:SetValue("Игра: " .. gamename .. "\nИнфa:\nXП - " .. PlayerHuma.Health .. "/" .. PlayerHuma.MaxHealth .. " Скорость - " .. PlayerHuma.WalkSpeed .. " Сила прыжка - " .. PlayerHuma.JumpPower) 
+	        	for _, v in pairs(Game.Workspace.Rooms:GetChildren()) do
+            	if v:IsA("Model") and v:FindFirstChildWhichIsA("Door") then
+                v:FindFirstChildWhichIsA("Door"):Destroy()
+				end
+				end
 end
